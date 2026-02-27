@@ -120,6 +120,7 @@ def analyze_self_model_structure(
     model.eval()
     
     # Sample points for Jacobian analysis
+    # First, run forward passes to get hidden states
     n_samples = min(100, obs.shape[0])
     idx = torch.randperm(obs.shape[0])[:n_samples]
     x_samples = obs[idx]
@@ -127,9 +128,17 @@ def analyze_self_model_structure(
     spectral_radii = []
     jacobian_norms = []
     
+    # Extract hidden states by running forward passes
+    hidden_states = []
     for x in x_samples:
-        x_batch = x.unsqueeze(0).unsqueeze(1)  # [1, 1, D]
-        jac = compute_jacobian(model, x_batch, device)
+        x_batch = x.unsqueeze(0).unsqueeze(1).to(device)  # [1, 1, D]
+        with torch.no_grad():
+            _, hidden = model.rnn(x_batch)  # hidden is [1, 1, hidden_dim]
+            hidden_states.append(hidden.squeeze(0))  # [1, hidden_dim]
+    
+    # Analyze Jacobians at hidden states
+    for h in hidden_states:
+        jac = compute_jacobian(model, h)
         
         sr = spectral_radius(jac)
         spectral_radii.append(float(sr))

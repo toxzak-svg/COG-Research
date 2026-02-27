@@ -87,7 +87,7 @@ def train_self_model_stress(
     val_obs = obs[n_train:]
     
     # Model
-    model = SelfModel(input_dim=D, hidden_dim=config.hidden_dim).to(device)
+    model = SelfModel(input_dim=D, hidden_dim=config.hidden_dim, output_dim=D).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     
     # Training

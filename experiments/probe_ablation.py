@@ -63,7 +63,7 @@ def run_single_ablation(
     Returns summary statistics for this configuration.
     """
     from experiments.ordering_hypothesis_probe import (
-        bootstrap_difference,
+        bootstrap_mean_diff,
         cohens_d_paired,
         cliffs_delta,
         LOWER_IS_BETTER,
@@ -89,10 +89,12 @@ def run_single_ablation(
         world_vals = [world_series.values[world_series.seeds.index(s)] for s in common_seeds]
         
         # Bootstrap difference
-        diffs = [s - w for s, w in zip(self_vals, world_vals)]
-        ci = bootstrap_difference(diffs, config.bootstrap_samples, rng)
-        
-        mean_diff = float(np.mean(diffs))
+        self_arr = np.array(self_vals)
+        world_arr = np.array(world_vals)
+        mean_diff, ci_low, ci_high = bootstrap_mean_diff(
+            self_arr, world_arr, config.bootstrap_samples, rng
+        )
+        ci = {"low": ci_low, "high": ci_high}
         ci_excludes_zero = (ci["low"] > 0) or (ci["high"] < 0)
         
         # Determine winner
@@ -348,7 +350,7 @@ def generate_summary(data: dict[str, Any], output_path: Path):
     lines.append("")
     
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text("\n".join(lines))
+    output_path.write_text("\n".join(lines), encoding='utf-8')
 
 
 if __name__ == "__main__":
