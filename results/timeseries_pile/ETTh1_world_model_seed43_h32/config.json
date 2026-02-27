@@ -30,10 +30,10 @@
   ],
   "eval_freq": 1,
   "output_dir": "results/timeseries_pile",
-  "experiment_name": "ETTh1_world_model_seed42_h32",
+  "experiment_name": "ETTh1_world_model_seed43_h32",
   "save_checkpoints": true,
   "log_interval": 100,
-  "seed": 42,
+  "seed": 43,
   "device": "cpu",
   "num_workers": 0
 }

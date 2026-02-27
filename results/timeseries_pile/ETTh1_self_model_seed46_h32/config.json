@@ -4,7 +4,7 @@
   "seq_len": 96,
   "pred_len": 24,
   "normalize": "standard",
-  "model_type": "world_model",
+  "model_type": "self_model",
   "state_dim": 4,
   "hidden_dim": 32,
   "n_layers": 2,
@@ -30,10 +30,10 @@
   ],
   "eval_freq": 1,
   "output_dir": "results/timeseries_pile",
-  "experiment_name": "ETTh1_world_model_seed42_h32",
+  "experiment_name": "ETTh1_self_model_seed46_h32",
   "save_checkpoints": true,
   "log_interval": 100,
-  "seed": 42,
+  "seed": 46,
   "device": "cpu",
   "num_workers": 0
 }

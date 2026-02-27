@@ -1,0 +1,7 @@
+{
+  "dataset": "ETTh1",
+  "preset": "ETTh1_short",
+  "n_seeds": 5,
+  "self_model_aggregate": null,
+  "world_model_aggregate": null
+}
