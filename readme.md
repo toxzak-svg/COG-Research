@@ -6,6 +6,17 @@ This project explores two innovative concepts in machine learning:
 1. **Imagination-First Learning**: A framework for generating counterfactual worlds using a family of transition operators \(T_\theta\) with internal coherence constraints.
 2. **Minimal Self-Model First Architectures**: A framework where world modeling emerges as a perturbation to self-prediction in a dynamical system \(S_\theta\).
 
+## Recent Updates
+
+### Timeseries-PILE Integration (2026-02-27)
+- ✅ Integrated [Timeseries-PILE](https://huggingface.co/datasets/AutonLab/Timeseries-PILE) dataset (13M+ time series from 5+ databases)
+- ✅ Created unified data loaders for forecasting, classification, and anomaly detection datasets
+- ✅ Adapted self-model and world-model for real-world multivariate time series
+- ✅ Built benchmark comparison framework for self-model vs world-model evaluation
+- ✅ Validated on ETT datasets with working training pipelines
+
+**See [TIMESERIES_PILE_INTEGRATION.md](TIMESERIES_PILE_INTEGRATION.md) for details**
+
 ## Environment Setup
 
 1. Create and activate a virtual environment.

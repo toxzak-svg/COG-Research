@@ -174,7 +174,6 @@ def main(config: TimeseriesExperimentConfig):
     model = VAE(
         input_dim=input_dim,
         latent_dim=config.vae_latent_dim,
-        hidden_dim=config.vae_hidden_dim,
     ).to(config.device)
     
     print(f"Model parameters: {sum(p.numel() for p in model.parameters()):,}")

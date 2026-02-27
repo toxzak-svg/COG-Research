@@ -4,7 +4,7 @@
   "seq_len": 96,
   "pred_len": 24,
   "normalize": "standard",
-  "model_type": "self_model",
+  "model_type": "world_model",
   "state_dim": 4,
   "hidden_dim": 32,
   "n_layers": 2,
