@@ -51,33 +51,20 @@ def train_epoch(
         optimizer.zero_grad()
         
         # Forward pass
-        # Self-model predicts next-step transitions
-        # We'll predict one step at a time through the sequence
+        # Self-model takes sequence and predicts all next-step transitions
         batch_size, seq_len, n_features = input_seq.shape
         
-        # Initialize hidden state
-        hidden = model.init_hidden(batch_size, device)
+        # Concatenate input and target for training on full sequence
+        full_seq = torch.cat([input_seq, target_seq], dim=1)  # (batch, seq_len+pred_len, features)
         
-        # Run through input sequence to build up hidden state
-        for t in range(seq_len - 1):
-            current_obs = input_seq[:, t, :]  # (batch, features)
-            next_obs = input_seq[:, t + 1, :]  # (batch, features)
-            
-            # Predict next observation
-            pred_next, hidden = model(current_obs, hidden)
-            
-        # Now predict into the future
-        current_obs = input_seq[:, -1, :]  # Last observation in input
-        predictions = []
+        # Model predicts next-step transitions for the sequence
+        # Input: full_seq[:, :-1], Target: full_seq[:, 1:]
+        predictions = model(full_seq[:, :-1, :])  # (batch, seq_len+pred_len-1, features)
         
+        # We only care about predictions on the target portion
+        # The last pred_len predictions correspond to the forecast horizon
         pred_len = target_seq.shape[1]
-        for t in range(pred_len):
-            pred_next, hidden = model(current_obs, hidden)
-            predictions.append(pred_next)
-            current_obs = pred_next  # Use prediction as next input
-        
-        # Stack predictions
-        predictions = torch.stack(predictions, dim=1)  # (batch, pred_len, features)
+        predictions = predictions[:, -pred_len:, :]  # (batch, pred_len, features)
         
         # Compute loss
         loss = nn.functional.mse_loss(predictions, target_seq)
@@ -112,24 +99,16 @@ def evaluate(
             target_seq = target_seq.to(device)
             
             batch_size, seq_len, n_features = input_seq.shape
-            hidden = model.init_hidden(batch_size, device)
-            
-            # Run through input sequence
-            for t in range(seq_len - 1):
-                current_obs = input_seq[:, t, :]
-                pred_next, hidden = model(current_obs, hidden)
-            
-            # Predict into future
-            current_obs = input_seq[:, -1, :]
-            predictions = []
-            
             pred_len = target_seq.shape[1]
-            for t in range(pred_len):
-                pred_next, hidden = model(current_obs, hidden)
-                predictions.append(pred_next)
-                current_obs = pred_next
             
-            predictions = torch.stack(predictions, dim=1)
+            # Concatenate input and target
+            full_seq = torch.cat([input_seq, target_seq], dim=1)
+            
+            # Model predicts next-step transitions
+            predictions = model(full_seq[:, :-1, :])
+            
+            # Extract predictions for the forecast horizon
+            predictions = predictions[:, -pred_len:, :]
             loss = nn.functional.mse_loss(predictions, target_seq)
             
             total_loss += loss.item()
@@ -142,7 +121,6 @@ def evaluate(
 
 def main(config: TimeseriesExperimentConfig):
     """Main training function."""
-    # Set seed
     set_seed(config.seed)
     
     # Create output directory
@@ -183,9 +161,9 @@ def main(config: TimeseriesExperimentConfig):
     # Create model
     print("\nInitializing model...")
     model = SelfModel(
-        obs_dim=n_features,
-        state_dim=config.state_dim,
+        input_dim=n_features,
         hidden_dim=config.hidden_dim,
+        output_dim=n_features,
     ).to(config.device)
     
     print(f"Model parameters: {sum(p.numel() for p in model.parameters()):,}")

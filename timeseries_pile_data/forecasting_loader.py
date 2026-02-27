@@ -16,12 +16,12 @@ from .utils import (
 )
 
 
-# Dataset metadata
+# Dataset metadata (all lowercase keys for consistency)
 AUTOFORMER_DATASETS = {
-    'ETTh1': {'freq': '1H', 'features': 7, 'target_col': 'OT'},
-    'ETTh2': {'freq': '1H', 'features': 7, 'target_col': 'OT'},
-    'ETTm1': {'freq': '15T', 'features': 7, 'target_col': 'OT'},
-    'ETTm2': {'freq': '15T', 'features': 7, 'target_col': 'OT'},
+    'etth1': {'freq': '1H', 'features': 7, 'target_col': 'OT'},
+    'etth2': {'freq': '1H', 'features': 7, 'target_col': 'OT'},
+    'ettm1': {'freq': '15T', 'features': 7, 'target_col': 'OT'},
+    'ettm2': {'freq': '15T', 'features': 7, 'target_col': 'OT'},
     'electricity': {'freq': '1H', 'features': 321, 'target_col': 'MT_001'},
     'exchange_rate': {'freq': '1D', 'features': 8, 'target_col': None},
     'national_illness': {'freq': '1W', 'features': 7, 'target_col': 'OT'},
@@ -67,12 +67,12 @@ def load_autoformer_dataset(
     
     metadata = AUTOFORMER_DATASETS[dataset_key]
     
-    # Construct file path
+    # Construct file path (lowercase keys map to proper filenames)
     file_map = {
-        'ETTh1': 'ETTh1.csv',
-        'ETTh2': 'ETTh2.csv',
-        'ETTm1': 'ETTm1.csv',
-        'ETTm2': 'ETTm2.csv',
+        'etth1': 'ETTh1.csv',
+        'etth2': 'ETTh2.csv',
+        'ettm1': 'ETTm1.csv',
+        'ettm2': 'ETTm2.csv',
         'electricity': 'electricity.csv',
         'exchange_rate': 'exchange_rate.csv',
         'national_illness': 'national_illness.csv',
