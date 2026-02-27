@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+
+.venv/
+.pytest_cache/
+
+# Generated experiment artefacts
+*.pth
+*.npy
+*.npz
+
+# Experiment outputs
+minimal_self_model/experiments/artefacts/
+imagination_first_learning/experiments/artefacts/
