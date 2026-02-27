@@ -1,0 +1,22 @@
+{
+  "shared": {
+    "data_path": "imagination_first_learning/data/synthetic_data.npy",
+    "model_path": "vae_model.pth",
+    "latent_dim": 2,
+    "seed": 42,
+    "device": "auto"
+  },
+  "train": {
+    "batch_size": 32,
+    "epochs": 50,
+    "lr": 0.001,
+    "val_fraction": 0.1,
+    "num_workers": 0,
+    "recon_loss": "mse",
+    "beta": 1.0,
+    "kl_warmup_epochs": 20
+  },
+  "eval": {
+    "batch_size": 256
+  }
+}

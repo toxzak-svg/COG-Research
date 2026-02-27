@@ -1,0 +1,9 @@
+{
+  "one_step_mse": 0.017741113901138306,
+  "rollout_divergence_50": 0.019045639783143997,
+  "spectral_radius": 2726.921086934712,
+  "perturbation_return_rate": -0.020423084371159087,
+  "train_loss": 0.027379154798719618,
+  "val_loss": 0.0277672139018774,
+  "latent_transition_mse": 1.9265800066392558e-09
+}

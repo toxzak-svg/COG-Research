@@ -1,0 +1,22 @@
+{
+  "shared": {
+    "data_path": "minimal_self_model/data/synthetic_sequential_data.npy",
+    "self_model_path": "self_model.pth",
+    "vae_model_path": "vae_model.pth",
+    "latent_transition_path": "vae_latent_transition.npz",
+    "device": "auto",
+    "seed": 42
+  },
+  "train": {
+    "hidden_dim": 16,
+    "batch_size": 32,
+    "epochs": 50,
+    "lr": 0.001,
+    "val_fraction": 0.1,
+    "num_workers": 0
+  },
+  "eval": {
+    "batch_size": 256,
+    "horizons": [1, 2, 4, 8]
+  }
+}

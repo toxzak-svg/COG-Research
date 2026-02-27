@@ -1,0 +1,8 @@
+{
+  "one_step_mse": 0.034058213233947754,
+  "rollout_divergence_50": 0.36268556118011475,
+  "spectral_radius": 1.3723630905151367,
+  "perturbation_return_rate": 0.23085743113652624,
+  "train_mse": 0.0009925316965160996,
+  "val_mse": 0.0008013474910843129
+}
