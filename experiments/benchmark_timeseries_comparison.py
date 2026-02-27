@@ -32,7 +32,7 @@ def run_experiment(
         raise ValueError(f"Unknown model type: {model_type}")
     
     cmd = [
-        'python', script,
+        sys.executable, script,
         '--preset', preset,
         '--dataset', dataset,
         '--seed', str(seed),

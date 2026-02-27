@@ -348,5 +348,11 @@ if __name__ == '__main__':
         config.seed = args.seed
     config.device = args.device
     
+    # Regenerate experiment name with correct model type
+    config.experiment_name = (
+        f"{config.dataset_name}_{config.model_type}_"
+        f"seed{config.seed}_h{config.hidden_dim}"
+    )
+    
     # Run training
     results = main(config)
