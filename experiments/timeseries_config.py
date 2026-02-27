@@ -32,10 +32,10 @@ class TimeseriesExperimentConfig:
     grad_clip: float = 1.0
     
     # VAE configuration (for world_model)
-    vae_latent_dim: int = 8
-    vae_hidden_dim: int = 64
-    kl_weight: float = 1.0
-    kl_warmup_epochs: int = 10
+    vae_latent_dim: int = 16  # Increased from 8 for better capacity
+    vae_hidden_dim: int = 128  # Increased from 64 for better capacity
+    kl_weight: float = 0.1  # Reduced from 1.0 to prevent KL collapse
+    kl_warmup_epochs: int = 20  # Increased warmup period
     recon_loss: str = 'mse'  # 'mse' or 'bce'
     
     # Optimization
@@ -76,6 +76,8 @@ BENCHMARK_CONFIGS = {
         pred_len=24,
         state_dim=4,
         hidden_dim=32,
+        vae_latent_dim=16,  # Updated for better performance
+        vae_hidden_dim=128,
     ),
     'ETTh1_long': TimeseriesExperimentConfig(
         dataset_name='ETTh1',

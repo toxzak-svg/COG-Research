@@ -247,12 +247,17 @@ def main():
     print("LOADING RESULTS")
     print("="*80)
     
+    # Get the preset config to determine hidden_dim
+    from experiments.timeseries_config import BENCHMARK_CONFIGS
+    preset_config = BENCHMARK_CONFIGS.get(args.preset)
+    hidden_dim = preset_config.hidden_dim if preset_config else 64
+    
     self_model_results = []
     world_model_results = []
     
     for seed in args.seeds:
         # Self-model
-        sm_name = f"{args.dataset}_self_model_seed{seed}_h64"  # Adjust based on config
+        sm_name = f"{args.dataset}_self_model_seed{seed}_h{hidden_dim}"
         sm_result = load_experiment_results(args.output_dir, sm_name)
         if sm_result is not None:
             self_model_results.append(sm_result)
@@ -261,7 +266,7 @@ def main():
             print(f"Self-model seed {seed}: NOT FOUND")
         
         # World-model
-        wm_name = f"{args.dataset}_world_model_seed{seed}_h64"
+        wm_name = f"{args.dataset}_world_model_seed{seed}_h{hidden_dim}"
         wm_result = load_experiment_results(args.output_dir, wm_name)
         if wm_result is not None:
             world_model_results.append(wm_result)

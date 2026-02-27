@@ -1,0 +1,31 @@
+
+================================================================================
+EXPERIMENT PROGRESS - 2026-02-27 13:44:16
+  (Updating every 300 seconds, Press Ctrl+C to exit)
+================================================================================
+
+================================================================================
+TIMESERIES-PILE BENCHMARK: ETTh1
+================================================================================
+Traceback (most recent call last):
+  File "C:\dev\Cog\experiments\monitor_progress.py", line 246, in <module>
+    main()
+    ~~~~^^
+  File "C:\dev\Cog\experiments\monitor_progress.py", line 217, in main
+    ts_completed, ts_total = monitor_timeseries_benchmark(
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        timeseries_dir, args.timeseries_dataset, args.timeseries_seeds
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\dev\Cog\experiments\monitor_progress.py", line 107, in monitor_timeseries_benchmark
+    print(f"  {emoji} [{model_type:12s}] Seed {seed}: "
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          f"[{progress_bar}] {status['epochs']}/{status['total_epochs']} epochs "
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          f"({status['progress_pct']:.1f}%) {val_loss_str} {best_str}")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u25b6' in position 2: character maps to <undefined>

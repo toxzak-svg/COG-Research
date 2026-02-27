@@ -20,6 +20,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from imagination_first_learning.models.vae import VAE
+from imagination_first_learning.models.vae_timeseries import TimeseriesVAE
 from timeseries_pile_data.forecasting_loader import create_dataloaders
 from experiments.timeseries_config import TimeseriesExperimentConfig, get_config
 
@@ -33,12 +34,13 @@ def set_seed(seed: int):
 
 
 def train_epoch(
-    model: VAE,
+    model: TimeseriesVAE,
     dataloader: DataLoader,
     optimizer: optim.Optimizer,
     device: str,
     kl_weight: float = 1.0,
     grad_clip: float = 1.0,
+    normalize_loss: bool = True,
 ) -> Dict[str, float]:
     """Train for one epoch."""
     model.train()
@@ -53,6 +55,7 @@ def train_epoch(
         input_seq = input_seq.to(device)  # (batch, seq_len, features)
         
         batch_size, seq_len, n_features = input_seq.shape
+        input_dim = seq_len * n_features
         
         # Flatten sequence dimension for VAE
         x = input_seq.reshape(batch_size, -1)  # (batch, seq_len * features)
@@ -62,9 +65,13 @@ def train_epoch(
         # Forward pass
         x_recon, mu, logvar = model(x)
         
-        # Compute losses
+        # Compute losses with proper normalization
         recon_loss = nn.functional.mse_loss(x_recon, x, reduction='sum') / batch_size
         kl_loss = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp()) / batch_size
+        
+        # Normalize reconstruction loss by input dimension for fair comparison
+        if normalize_loss:
+            recon_loss = recon_loss / input_dim
         
         loss = recon_loss + kl_weight * kl_loss
         
@@ -87,10 +94,11 @@ def train_epoch(
 
 
 def evaluate(
-    model: VAE,
+    model: TimeseriesVAE,
     dataloader: DataLoader,
     device: str,
     kl_weight: float = 1.0,
+    normalize_loss: bool = True,
 ) -> Dict[str, float]:
     """Evaluate the model."""
     model.eval()
@@ -104,12 +112,17 @@ def evaluate(
             input_seq = input_seq.to(device)
             
             batch_size, seq_len, n_features = input_seq.shape
+            input_dim = seq_len * n_features
             x = input_seq.reshape(batch_size, -1)
             
             x_recon, mu, logvar = model(x)
             
             recon_loss = nn.functional.mse_loss(x_recon, x, reduction='sum') / batch_size
             kl_loss = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp()) / batch_size
+            
+            # Normalize reconstruction loss by input dimension for fair comparison
+            if normalize_loss:
+                recon_loss = recon_loss / input_dim
             
             loss = recon_loss + kl_weight * kl_loss
             
@@ -171,9 +184,12 @@ def main(config: TimeseriesExperimentConfig):
     
     # Create model
     print("\nInitializing model...")
-    model = VAE(
+    # Use improved TimeseriesVAE with proper architecture
+    model = TimeseriesVAE(
         input_dim=input_dim,
         latent_dim=config.vae_latent_dim,
+        hidden_dims=[config.vae_hidden_dim * 2, config.vae_hidden_dim],
+        use_layer_norm=False,
     ).to(config.device)
     
     print(f"Model parameters: {sum(p.numel() for p in model.parameters()):,}")
@@ -235,12 +251,13 @@ def main(config: TimeseriesExperimentConfig):
         # Train
         train_metrics = train_epoch(
             model, train_loader, optimizer, config.device,
-            kl_weight=kl_weight, grad_clip=config.grad_clip
+            kl_weight=kl_weight, grad_clip=config.grad_clip,
+            normalize_loss=True
         )
         
         # Validate
         if epoch % config.eval_freq == 0:
-            val_metrics = evaluate(model, val_loader, config.device, kl_weight=kl_weight)
+            val_metrics = evaluate(model, val_loader, config.device, kl_weight=kl_weight, normalize_loss=True)
             
             history['train_loss'].append(train_metrics['loss'])
             history['train_recon_loss'].append(train_metrics['recon_loss'])
