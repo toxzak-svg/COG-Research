@@ -1,6 +1,36 @@
 """Regenerate markdown summary from probe ablation JSON."""
 import json
+from collections import Counter
 from pathlib import Path
+
+def determine_winner(ablation):
+    """Determine overall winner from metrics."""
+    metric_winners = []
+    for metric_name, metric_data in ablation['metrics'].items():
+        winner = metric_data.get('winner', 'no_winner')
+        if winner == 'self_model_first_better':
+            metric_winners.append('self')
+        elif winner == 'world_model_first_better':
+            metric_winners.append('world')
+    
+    counts = Counter(metric_winners)
+    if counts['self'] > counts['world']:
+        return 'self_model_first'
+    elif counts['world'] > counts['self']:
+        return 'world_model_first'
+    else:
+        return 'no_winner'
+
+def identify_varied_param(config, baseline):
+    """Identify which parameter differs from baseline."""
+    if config['bootstrap_samples'] != baseline['bootstrap_samples']:
+        return 'bootstrap_samples', config['bootstrap_samples']
+    elif config['probe_points'] != baseline['probe_points']:
+        return 'probe_points', config['probe_points']
+    elif config['probe_eps'] != baseline['probe_eps']:
+        return 'epsilon', config['probe_eps']
+    else:
+        return 'baseline', 'all'
 
 def generate_summary(data, output_path):
     """Generate markdown summary of ablation results."""
@@ -15,101 +45,121 @@ def generate_summary(data, output_path):
     lines.append("Testing sensitivity to probe design choices:")
     lines.append("")
     
+    # Baseline config (first one)
+    baseline = data['ablations'][0]['config']
+    
     # Organize by variation type
-    bootstrap_configs = [a for a in data['ablations'] if a['config']['name'] == 'bootstrap_samples']
-    points_configs = [a for a in data['ablations'] if a['config']['name'] == 'probe_points']
-    epsilon_configs = [a for a in data['ablations'] if a['config']['name'] == 'epsilon']
+    bootstrap_configs = []
+    points_configs = []
+    epsilon_configs = []
     
-    # Bootstrap samples ablation
-    if bootstrap_configs:
-        lines.append("### Bootstrap Samples")
-        lines.append("")
-        lines.append("| Samples | Winner | Effect Size | Confidence |")
-        lines.append("|---------|--------|-------------|------------|")
-        for cfg in bootstrap_configs:
-            winner = cfg['winner']
-            winner_str = "Self-first" if winner == "self_model_first" else "World-first" if winner == "world_model_first" else "No winner"
-            if winner != "no_winner":
-                effect = cfg['statistics']['cohens_d']
-                ci_low, ci_high = cfg['statistics']['bootstrap_ci']
-                lines.append(f"| {cfg['config']['value']} | {winner_str} | {effect:.3f} | [{ci_low:.3f}, {ci_high:.3f}] |")
+    for ablation in data['ablations']:
+        param, value = identify_varied_param(ablation['config'], baseline)
+        winner = determine_winner(ablation)
+        ablation['winner'] = winner
+        ablation['varied_param'] = param
+        ablation['varied_value'] = value
+        
+        if param == 'bootstrap_samples' or param == 'baseline':
+            bootstrap_configs.append(ablation)
+        if param == 'probe_points' or param == 'baseline':
+            points_configs.append(ablation)
+        if param == 'epsilon' or param == 'baseline':
+            epsilon_configs.append(ablation)
+    
+    # Sort by value
+    bootstrap_configs.sort(key=lambda x: x['config']['bootstrap_samples'])
+    points_configs.sort(key=lambda x: x['config']['probe_points'])
+    epsilon_configs.sort(key=lambda x: x['config']['probe_eps'])
+    
+    # Bootstrap samples table
+    lines.append("### Bootstrap Samples")
+    lines.append("")
+    lines.append("| Samples | One-Step MSE | Rollout Div | Spectral Radius | Perturbation Return | **Overall Winner** |")
+    lines.append("|---------|--------------|-------------|-----------------|---------------------|--------------------|")
+    for cfg in bootstrap_configs:
+        samples = cfg['config']['bootstrap_samples']
+        winners = []
+        for metric in ['one_step_mse', 'rollout_divergence_50', 'spectral_radius', 'perturbation_return_rate']:
+            w = cfg['metrics'][metric]['winner']
+            if w == 'self_model_first_better':
+                winners.append('✓S')
+            elif w == 'world_model_first_better':
+                winners.append('✓W')
             else:
-                lines.append(f"| {cfg['config']['value']} | {winner_str} | — | — |")
-        lines.append("")
-    
-    # Probe points ablation
-    if points_configs:
-        lines.append("### Probe Points")
-        lines.append("")
-        lines.append("| Points | Winner | Effect Size | Confidence |")
-        lines.append("|--------|--------|-------------|------------|")
-        for cfg in points_configs:
-            winner = cfg['winner']
-            winner_str = "Self-first" if winner == "self_model_first" else "World-first" if winner == "world_model_first" else "No winner"
-            if winner != "no_winner":
-                effect = cfg['statistics']['cohens_d']
-                ci_low, ci_high = cfg['statistics']['bootstrap_ci']
-                lines.append(f"| {cfg['config']['value']} | {winner_str} | {effect:.3f} | [{ci_low:.3f}, {ci_high:.3f}] |")
-            else:
-                lines.append(f"| {cfg['config']['value']} | {winner_str} | — | — |")
-        lines.append("")
-    
-    # Epsilon ablation
-    if epsilon_configs:
-        lines.append("### Perturbation Scale (ε)")
-        lines.append("")
-        lines.append("| Epsilon | Winner | Effect Size | Confidence |")
-        lines.append("|---------|--------|-------------|------------|")
-        for cfg in epsilon_configs:
-            winner = cfg['winner']
-            winner_str = "Self-first" if winner == "self_model_first" else "World-first" if winner == "world_model_first" else "No winner"
-            if winner != "no_winner":
-                effect = cfg['statistics']['cohens_d']
-                ci_low, ci_high = cfg['statistics']['bootstrap_ci']
-                lines.append(f"| {cfg['config']['epsilon']} | {winner_str} | {effect:.3f} | [{ci_low:.3f}, {ci_high:.3f}] |")
-            else:
-                lines.append(f"| {cfg['config']['epsilon']} | {winner_str} | — | — |")
-        lines.append("")
-    
-    lines.append("## Winner Summary")
+                winners.append('—')
+        overall = cfg['winner']
+        overall_str = "**Self-first**" if overall == 'self_model_first' else "**World-first**" if overall == 'world_model_first' else "Tie"
+        lines.append(f"| {samples} | {winners[0]} | {winners[1]} | {winners[2]} | {winners[3]} | {overall_str} |")
     lines.append("")
     
-    # Count winners
+    # Probe points table
+    lines.append("### Probe Points")
+    lines.append("")
+    lines.append("| Points | One-Step MSE | Rollout Div | Spectral Radius | Perturbation Return | **Overall Winner** |")
+    lines.append("|--------|--------------|-------------|-----------------|---------------------|--------------------|")
+    for cfg in points_configs:
+        points = cfg['config']['probe_points']
+        winners = []
+        for metric in ['one_step_mse', 'rollout_divergence_50', 'spectral_radius', 'perturbation_return_rate']:
+            w = cfg['metrics'][metric]['winner']
+            if w == 'self_model_first_better':
+                winners.append('✓S')
+            elif w == 'world_model_first_better':
+                winners.append('✓W')
+            else:
+                winners.append('—')
+        overall = cfg['winner']
+        overall_str = "**Self-first**" if overall == 'self_model_first' else "**World-first**" if overall == 'world_model_first' else "Tie"
+        lines.append(f"| {points} | {winners[0]} | {winners[1]} | {winners[2]} | {winners[3]} | {overall_str} |")
+    lines.append("")
+    
+    # Epsilon table
+    lines.append("### Perturbation Scale (ε)")
+    lines.append("")
+    lines.append("| Epsilon | One-Step MSE | Rollout Div | Spectral Radius | Perturbation Return | **Overall Winner** |")
+    lines.append("|---------|--------------|-------------|-----------------|---------------------|--------------------|")
+    for cfg in epsilon_configs:
+        eps = cfg['config']['probe_eps']
+        winners = []
+        for metric in ['one_step_mse', 'rollout_divergence_50', 'spectral_radius', 'perturbation_return_rate']:
+            w = cfg['metrics'][metric]['winner']
+            if w == 'self_model_first_better':
+                winners.append('✓S')
+            elif w == 'world_model_first_better':
+                winners.append('✓W')
+            else:
+                winners.append('—')
+        overall = cfg['winner']
+        overall_str = "**Self-first**" if overall == 'self_model_first' else "**World-first**" if overall == 'world_model_first' else "Tie"
+        lines.append(f"| {eps} | {winners[0]} | {winners[1]} | {winners[2]} | {winners[3]} | {overall_str} |")
+    lines.append("")
+    
+    # Summary
+    lines.append("## Summary")
+    lines.append("")
     winners = [a['winner'] for a in data['ablations']]
     self_count = winners.count('self_model_first')
     world_count = winners.count('world_model_first')
-    no_winner_count = winners.count('no_winner')
+    tie_count = winners.count('no_winner')
     
-    lines.append(f"- Self-model-first: {self_count}/{len(winners)} configurations")
-    lines.append(f"- World-model-first: {world_count}/{len(winners)} configurations")
-    lines.append(f"- No clear winner: {no_winner_count}/{len(winners)} configurations")
-    lines.append("")
-    
-    # Visual summary grid
-    lines.append("### Configuration Grid")
-    lines.append("")
-    lines.append("✓S = Self-model-first wins | ✓W = World-model-first wins | — = No clear winner")
-    lines.append("")
-    lines.append("| Parameter | Configuration | Result |")
-    lines.append("|-----------|---------------|--------|")
-    for cfg in data['ablations']:
-        param = cfg['config']['name']
-        value = cfg['config']['value'] if 'value' in cfg['config'] else cfg['config']['epsilon']
-        winner = cfg['winner']
-        if winner == 'self_model_first':
-            result_symbol = "✓S"
-        elif winner == 'world_model_first':
-            result_symbol = "✓W"
-        else:
-            result_symbol = "—"
-        lines.append(f"| {param} | {value} | {result_symbol} |")
+    lines.append(f"- Self-model-first wins: {self_count}/{len(winners)} configurations")
+    lines.append(f"- World-model-first wins: {world_count}/{len(winners)} configurations")
+    lines.append(f"- Ties: {tie_count}/{len(winners)} configurations")
     lines.append("")
     
     lines.append("## Interpretation")
     lines.append("")
-    lines.append("**Key:** ✓S = Self-model-first wins, ✓W = World-model-first wins, — = No clear winner")
+    lines.append("**Key:** ✓S = Self-model-first better on this metric, ✓W = World-model-first better, — = No clear winner")
     lines.append("")
-    lines.append("If conclusions are consistent across parameter variations, this indicates robustness.")
+    if self_count == len(winners):
+        lines.append("✅ **Strong robustness**: Self-model-first wins consistently across all parameter variations.")
+    elif world_count == len(winners):
+        lines.append("✅ **Strong robustness**: World-model-first wins consistently across all parameter variations.")
+    elif self_count > len(winners) * 0.8 or world_count > len(winners) * 0.8:
+        lines.append("✅ **Good robustness**: One paradigm wins in >80% of configurations.")
+    else:
+        lines.append("⚠️ **Limited robustness**: Winner changes based on probe configuration.")
     lines.append("")
     
     output_path.parent.mkdir(parents=True, exist_ok=True)
