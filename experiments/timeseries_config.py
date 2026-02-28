@@ -93,6 +93,31 @@ BENCHMARK_CONFIGS = {
         state_dim=4,
         hidden_dim=32,
     ),
+    'ETTm1_long': TimeseriesExperimentConfig(
+        dataset_name='ETTm1',
+        seq_len=96,
+        pred_len=192,
+        state_dim=8,
+        hidden_dim=64,
+    ),
+    
+    # Traffic dataset (high dimensional: 862 features)
+    'traffic_short': TimeseriesExperimentConfig(
+        dataset_name='traffic',
+        seq_len=96,
+        pred_len=24,
+        state_dim=16,
+        hidden_dim=128,
+        batch_size=16,  # Smaller batch due to high dimensionality
+    ),
+    'traffic_long': TimeseriesExperimentConfig(
+        dataset_name='traffic',
+        seq_len=96,
+        pred_len=192,
+        state_dim=16,
+        hidden_dim=128,
+        batch_size=16,
+    ),
     
     # Weather dataset
     'weather_short': TimeseriesExperimentConfig(

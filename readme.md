@@ -6,6 +6,25 @@ This project explores two innovative concepts in machine learning:
 1. **Imagination-First Learning**: A framework for generating counterfactual worlds using a family of transition operators \(T_\theta\) with internal coherence constraints.
 2. **Minimal Self-Model First Architectures**: A framework where world modeling emerges as a perturbation to self-prediction in a dynamical system \(S_\theta\).
 
+## Project Structure
+
+```
+Cog/
+├── imagination_first_learning/   # Imagination-First Learning framework
+├── minimal_self_model/          # Minimal Self-Model First Architectures
+├── experiments/                  # Main experiment scripts (timeseries, world models)
+├── data/                        # Datasets (ETT, Traffic, Weather, Timeseries-PILE, etc.)
+├── deterministic_data/          # Deterministic dataset generators
+├── results/                     # Training results and checkpoints
+├── checkpoints/                 # Saved model checkpoints
+├── tests/                       # Unit and smoke tests
+├── scripts/                     # Utility scripts (analysis, cleanup, etc.)
+├── plots/                       # Visualization and analysis results
+├── stability_analysis/          # Stability analysis experiments
+├── web_design/                  # Web design & aesthetics projects (separated)
+└── requirements.txt             # Python dependencies
+```
+
 ## Recent Updates
 
 ### Timeseries-PILE Integration (2026-02-27)

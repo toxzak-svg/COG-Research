@@ -132,11 +132,15 @@ def train_self_model_stress(
     # Evaluate
     model.eval()
     with torch.no_grad():
-        # Spectral radius
+        # Spectral radius — compute over hidden states, not raw observations
         sample_obs = val_obs[:100].to(device)
         spectral_radii = []
         for x in sample_obs:
-            jac = compute_jacobian(model, x.unsqueeze(0).unsqueeze(1), device)
+            # Run RNN to get hidden state from this observation
+            obs_input = x.unsqueeze(0).unsqueeze(0)  # (1, 1, D)
+            _, hidden = model.rnn(obs_input)           # hidden: (1, 1, hidden_dim)
+            hidden_state = hidden.squeeze(0)           # (1, hidden_dim)
+            jac = compute_jacobian(model, hidden_state)
             sr = spectral_radius(jac)
             spectral_radii.append(float(sr))
         
