@@ -1,0 +1,16 @@
+{
+  "data_dir": "flask_app_data/collected",
+  "batch_size": 16,
+  "num_workers": 0,
+  "state_dim": 170,
+  "latent_dim": 16,
+  "edit_dim": 32,
+  "hidden_dim": 128,
+  "kl_weight": 0.1,
+  "epochs": 5,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "patience": 10,
+  "output_dir": "flask_app_data/test_results",
+  "device": "cpu"
+}
