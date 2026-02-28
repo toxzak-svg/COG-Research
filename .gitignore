@@ -6,9 +6,15 @@ __pycache__/
 
 # Generated experiment artefacts
 *.pth
+*.pt
 *.npy
 *.npz
+
+# Large data files
+data/Traffic/traffic.txt
+data/Electricity/ECL.csv
 
 # Experiment outputs
 minimal_self_model/experiments/artefacts/
 imagination_first_learning/experiments/artefacts/
+results/
