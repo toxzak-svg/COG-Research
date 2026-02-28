@@ -1,0 +1,14 @@
+{
+  "checkpoint": "results/image_vae_aesthetics/vae_best_epoch_1.pt",
+  "epoch": 1,
+  "latent_dim": 64,
+  "silhouette_score": -0.01933271251618862,
+  "active_dimensions": 56,
+  "mean_activation": 0.1831805408000946,
+  "std_activation": 0.2254139631986618,
+  "pca_3comp_variance": 0.29081615805625916,
+  "val_loss": 4.593579816818237,
+  "val_recon_loss": null,
+  "val_tc_loss": null,
+  "val_outcome_loss": null
+}

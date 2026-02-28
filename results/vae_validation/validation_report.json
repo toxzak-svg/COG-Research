@@ -1,0 +1,40 @@
+{
+  "reconstruction_quality": {
+    "overall_mse": 0.22908534109592438,
+    "outcome_mae": 0.18748824298381805,
+    "visual": 0.21681109070777893,
+    "content": 0.27487483620643616,
+    "performance": 0.3109436631202698,
+    "cognitive": 0.2336406409740448,
+    "context": 0.2116391807794571,
+    "portfolio": 0.19907794892787933,
+    "mvp_pass": false,
+    "production_pass": false
+  },
+  "interpolation_smoothness": {
+    "avg_coherence": 0.9999984458496997,
+    "min_coherence": 0.9999947902487077,
+    "max_coherence": 0.9999999461524081,
+    "mvp_pass": true,
+    "production_pass": true
+  },
+  "semantic_clustering": {
+    "silhouette_score": -0.2607324719429016,
+    "num_clusters": 4,
+    "mvp_pass": false,
+    "production_pass": false
+  },
+  "latent_arithmetic": {
+    "sim_to_minimal": 0.9999994039535522,
+    "sim_to_rich": 0.9999995231628418,
+    "sim_to_avg": 0.9999983906745911,
+    "valid_values": 1.0,
+    "success": true
+  },
+  "overall_assessment": {
+    "mvp_pass": false,
+    "production_pass": false,
+    "mvp_checks_passed": "1/3",
+    "production_checks_passed": "1/3"
+  }
+}

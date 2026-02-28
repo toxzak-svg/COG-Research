@@ -11,7 +11,7 @@ This schema captures:
 """
 
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Any
 from enum import Enum
 
 
@@ -258,6 +258,36 @@ class CognitiveLoadMetrics:
 
 
 @dataclass
+class SEOMetadata:
+    """
+    Comprehensive SEO metadata for webpage
+    Inspired by portfolio builder schema from WebAlchemist
+    """
+    meta_title: str = ""
+    meta_description: str = ""
+    og_image: str = ""  # Open Graph image URL
+    og_title: str = ""
+    og_description: str = ""
+    keywords: List[str] = field(default_factory=list)
+    canonical_url: str = ""
+    schema_markup: Optional[Dict[str, Any]] = None  # JSON-LD structured data
+
+
+@dataclass
+class SocialProof:
+    """
+    Social proof metrics (views, engagement, shares)
+    Inspired by portfolio builder social integration
+    """
+    views: Optional[int] = None
+    likes: Optional[int] = None
+    shares: Optional[int] = None
+    comments: Optional[int] = None
+    github_stars: Optional[int] = None  # For tech projects
+    upvotes: Optional[int] = None  # For listings (ProductHunt, etc.)
+
+
+@dataclass
 class WebpageState:
     """
     Complete state representation of a webpage at time t
@@ -304,7 +334,14 @@ class WebpageState:
     traffic_source: Optional[str] = None  # organic, paid, direct, social
     user_segment: Optional[str] = None  # new, returning, high_intent
     
-    # 8. A/B Test Context
+    # 8. Portfolio & Metadata (WebAlchemist-inspired)
+    project_category: Optional[str] = None  # 'saas', 'ecommerce', 'portfolio', 'blog', 'landing'
+    tech_stack: List[str] = field(default_factory=list)  # ['React', 'WebGPU', 'Three.js']
+    tags: List[str] = field(default_factory=list)  # User-facing categorization
+    seo_metadata: Optional[SEOMetadata] = None
+    social_proof: Optional[SocialProof] = None
+    
+    # 9. A/B Test Context
     experiment_id: Optional[str] = None
     variant_id: Optional[str] = None
     control_group: bool = False

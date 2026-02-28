@@ -1,0 +1,498 @@
+[
+  {
+    "epoch": 1,
+    "train": {
+      "total": 47.25545449690385,
+      "reconstruction": 0.18547296659512955,
+      "total_correlation": 3.2684702439741655,
+      "outcome_prediction": 0.34834152121435513
+    },
+    "val": {
+      "total": 4.593579816818237,
+      "reconstruction": 0.17284003496170045,
+      "total_correlation": 0.025415115430951117,
+      "outcome_prediction": 0.15200929939746857
+    },
+    "beta_tc": 10.25
+  },
+  {
+    "epoch": 2,
+    "train": {
+      "total": 90.53190682151101,
+      "reconstruction": 0.17322704602371564,
+      "total_correlation": 6.293568871238015,
+      "outcome_prediction": 0.12881517816673627
+    },
+    "val": {
+      "total": 76.18953704833984,
+      "reconstruction": 0.172247514128685,
+      "total_correlation": 5.101240348815918,
+      "outcome_prediction": 0.05195278003811836
+    },
+    "beta_tc": 10.5
+  },
+  {
+    "epoch": 3,
+    "train": {
+      "total": 67.74011490561746,
+      "reconstruction": 0.1602013727480715,
+      "total_correlation": 4.771502928300337,
+      "outcome_prediction": 0.09950412589717995
+    },
+    "val": {
+      "total": 125.15765686035157,
+      "reconstruction": 0.162276753783226,
+      "total_correlation": 8.806405067443848,
+      "outcome_prediction": 0.07485580146312713
+    },
+    "beta_tc": 10.75
+  },
+  {
+    "epoch": 4,
+    "train": {
+      "total": 70.440485867587,
+      "reconstruction": 0.1478192596272989,
+      "total_correlation": 4.737394744699651,
+      "outcome_prediction": 0.09954319115389478
+    },
+    "val": {
+      "total": 74.16779403686523,
+      "reconstruction": 0.15166680812835692,
+      "total_correlation": 5.191873359680176,
+      "outcome_prediction": 0.05914080739021301
+    },
+    "beta_tc": 11.0
+  },
+  {
+    "epoch": 5,
+    "train": {
+      "total": 60.604256890036844,
+      "reconstruction": 0.13864915005185388,
+      "total_correlation": 4.070038535378196,
+      "outcome_prediction": 0.08933662301437421
+    },
+    "val": {
+      "total": 60.32902908325195,
+      "reconstruction": 0.14599959552288055,
+      "total_correlation": 4.449563026428223,
+      "outcome_prediction": 0.05704391188919544
+    },
+    "beta_tc": 11.25
+  },
+  {
+    "epoch": 6,
+    "train": {
+      "total": 60.758255351673476,
+      "reconstruction": 0.1330164803022688,
+      "total_correlation": 4.120888970114968,
+      "outcome_prediction": 0.0779927062209357
+    },
+    "val": {
+      "total": 57.435138893127444,
+      "reconstruction": 0.1407725840806961,
+      "total_correlation": 3.8275005340576174,
+      "outcome_prediction": 0.05471542254090309
+    },
+    "beta_tc": 11.5
+  },
+  {
+    "epoch": 7,
+    "train": {
+      "total": 63.40960537303578,
+      "reconstruction": 0.1284843964332884,
+      "total_correlation": 4.131292830814015,
+      "outcome_prediction": 0.08316261863166635
+    },
+    "val": {
+      "total": 62.7628833770752,
+      "reconstruction": 0.1351943165063858,
+      "total_correlation": 3.9094033241271973,
+      "outcome_prediction": 0.048373355716466906
+    },
+    "beta_tc": 11.75
+  },
+  {
+    "epoch": 8,
+    "train": {
+      "total": 67.71105714277788,
+      "reconstruction": 0.1253611794249578,
+      "total_correlation": 4.379938147284768,
+      "outcome_prediction": 0.07031939771365035
+    },
+    "val": {
+      "total": 76.49057540893554,
+      "reconstruction": 0.12812621146440506,
+      "total_correlation": 4.924986171722412,
+      "outcome_prediction": 0.05829988345503807
+    },
+    "beta_tc": 12.0
+  },
+  {
+    "epoch": 9,
+    "train": {
+      "total": 58.93503466519442,
+      "reconstruction": 0.12311526624993845,
+      "total_correlation": 3.6825896826657383,
+      "outcome_prediction": 0.07033966143022884
+    },
+    "val": {
+      "total": 54.16216621398926,
+      "reconstruction": 0.1286982148885727,
+      "total_correlation": 3.0429734230041503,
+      "outcome_prediction": 0.041758273169398306
+    },
+    "beta_tc": 12.25
+  },
+  {
+    "epoch": 10,
+    "train": {
+      "total": 59.991803255948156,
+      "reconstruction": 0.12145437875931914,
+      "total_correlation": 3.702351613478227,
+      "outcome_prediction": 0.05718178979375146
+    },
+    "val": {
+      "total": 56.85288848876953,
+      "reconstruction": 0.1172061875462532,
+      "total_correlation": 3.0892035484313967,
+      "outcome_prediction": 0.03979698494076729
+    },
+    "beta_tc": 12.5
+  },
+  {
+    "epoch": 11,
+    "train": {
+      "total": 59.740260731090196,
+      "reconstruction": 0.12050456248901108,
+      "total_correlation": 3.5469903729178687,
+      "outcome_prediction": 0.06717829846523025
+    },
+    "val": {
+      "total": 68.68434295654296,
+      "reconstruction": 0.12034495174884796,
+      "total_correlation": 4.188799810409546,
+      "outcome_prediction": 0.03305101655423641
+    },
+    "beta_tc": 12.75
+  },
+  {
+    "epoch": 12,
+    "train": {
+      "total": 64.51054451682351,
+      "reconstruction": 0.1206330494447188,
+      "total_correlation": 3.888038992881775,
+      "outcome_prediction": 0.05588020299645988
+    },
+    "val": {
+      "total": 57.98735237121582,
+      "reconstruction": 0.12200338393449783,
+      "total_correlation": 3.3244425773620607,
+      "outcome_prediction": 0.040760231018066403
+    },
+    "beta_tc": 13.0
+  },
+  {
+    "epoch": 13,
+    "train": {
+      "total": 41.75498806346547,
+      "reconstruction": 0.11928670819510113,
+      "total_correlation": 2.4104343869469385,
+      "outcome_prediction": 0.05898057796399702
+    },
+    "val": {
+      "total": 43.71364822387695,
+      "reconstruction": 0.11782206445932389,
+      "total_correlation": 2.6597662925720216,
+      "outcome_prediction": 0.04698772132396698
+    },
+    "beta_tc": 13.25
+  },
+  {
+    "epoch": 14,
+    "train": {
+      "total": 35.731202905828304,
+      "reconstruction": 0.11849733611399477,
+      "total_correlation": 2.02447847886519,
+      "outcome_prediction": 0.05453816166316921
+    },
+    "val": {
+      "total": 32.06545820236206,
+      "reconstruction": 0.1161190316081047,
+      "total_correlation": 1.8847789764404297,
+      "outcome_prediction": 0.04196683466434479
+    },
+    "beta_tc": 13.5
+  },
+  {
+    "epoch": 15,
+    "train": {
+      "total": 31.201275652105156,
+      "reconstruction": 0.11867707696827975,
+      "total_correlation": 1.8057476878166199,
+      "outcome_prediction": 0.059375985102220016
+    },
+    "val": {
+      "total": 37.41837348937988,
+      "reconstruction": 0.11392695158720016,
+      "total_correlation": 2.0312241315841675,
+      "outcome_prediction": 0.03973456658422947
+    },
+    "beta_tc": 13.75
+  },
+  {
+    "epoch": 16,
+    "train": {
+      "total": 32.97859928824685,
+      "reconstruction": 0.1178592795675451,
+      "total_correlation": 1.8284801136363635,
+      "outcome_prediction": 0.04957569822330366
+    },
+    "val": {
+      "total": 49.83705291748047,
+      "reconstruction": 0.11976225227117539,
+      "total_correlation": 2.8966296672821046,
+      "outcome_prediction": 0.037867697328329085
+    },
+    "beta_tc": 14.0
+  },
+  {
+    "epoch": 17,
+    "train": {
+      "total": 32.43289279937744,
+      "reconstruction": 0.11879264021461661,
+      "total_correlation": 1.8903081146153538,
+      "outcome_prediction": 0.05752137066288428
+    },
+    "val": {
+      "total": 23.47485771179199,
+      "reconstruction": 0.11549551635980607,
+      "total_correlation": 1.2508715450763703,
+      "outcome_prediction": 0.035359738022089006
+    },
+    "beta_tc": 14.25
+  },
+  {
+    "epoch": 18,
+    "train": {
+      "total": 30.406859961423006,
+      "reconstruction": 0.11803087863055142,
+      "total_correlation": 1.6377752856774763,
+      "outcome_prediction": 0.04560121131891554
+    },
+    "val": {
+      "total": 43.90249443054199,
+      "reconstruction": 0.11504251956939697,
+      "total_correlation": 2.493637943267822,
+      "outcome_prediction": 0.03091554082930088
+    },
+    "beta_tc": 14.5
+  },
+  {
+    "epoch": 19,
+    "train": {
+      "total": 33.39960999922319,
+      "reconstruction": 0.11735925755717537,
+      "total_correlation": 1.8182780200784856,
+      "outcome_prediction": 0.04840458734807643
+    },
+    "val": {
+      "total": 22.501305770874023,
+      "reconstruction": 0.11583357006311416,
+      "total_correlation": 1.0833107948303222,
+      "outcome_prediction": 0.03445914331823587
+    },
+    "beta_tc": 14.75
+  },
+  {
+    "epoch": 20,
+    "train": {
+      "total": 33.99482865767045,
+      "reconstruction": 0.11692304198037494,
+      "total_correlation": 1.7426010261882434,
+      "outcome_prediction": 0.05522350590168075
+    },
+    "val": {
+      "total": 42.42202224731445,
+      "reconstruction": 0.11438139975070953,
+      "total_correlation": 2.2312549352645874,
+      "outcome_prediction": 0.03215489014983177
+    },
+    "beta_tc": 15.0
+  },
+  {
+    "epoch": 21,
+    "train": {
+      "total": 36.28310125524347,
+      "reconstruction": 0.1169842586598613,
+      "total_correlation": 1.9243845722892068,
+      "outcome_prediction": 0.050005743618715896
+    },
+    "val": {
+      "total": 31.447731018066406,
+      "reconstruction": 0.11678817719221116,
+      "total_correlation": 1.5794791221618651,
+      "outcome_prediction": 0.03101647011935711
+    },
+    "beta_tc": 15.25
+  },
+  {
+    "epoch": 22,
+    "train": {
+      "total": 32.92198473756964,
+      "reconstruction": 0.11723982949148525,
+      "total_correlation": 1.6724839102138171,
+      "outcome_prediction": 0.05300272340801629
+    },
+    "val": {
+      "total": 26.74212512969971,
+      "reconstruction": 0.11425375342369079,
+      "total_correlation": 1.2744318187236785,
+      "outcome_prediction": 0.03460816685110331
+    },
+    "beta_tc": 15.5
+  },
+  {
+    "epoch": 23,
+    "train": {
+      "total": 41.662766283208676,
+      "reconstruction": 0.11717817864634773,
+      "total_correlation": 2.0596107136119497,
+      "outcome_prediction": 0.050092102197760884
+    },
+    "val": {
+      "total": 28.553556442260742,
+      "reconstruction": 0.114065620303154,
+      "total_correlation": 1.3225472211837768,
+      "outcome_prediction": 0.035125012323260305
+    },
+    "beta_tc": 15.75
+  },
+  {
+    "epoch": 24,
+    "train": {
+      "total": 26.239841071042147,
+      "reconstruction": 0.11712451346895912,
+      "total_correlation": 1.2871809168295427,
+      "outcome_prediction": 0.04507611302489584
+    },
+    "val": {
+      "total": 31.06276798248291,
+      "reconstruction": 0.11375156342983246,
+      "total_correlation": 1.578790307044983,
+      "outcome_prediction": 0.025212246365845202
+    },
+    "beta_tc": 16.0
+  },
+  {
+    "epoch": 25,
+    "train": {
+      "total": 19.01501406322826,
+      "reconstruction": 0.11670472845435143,
+      "total_correlation": 0.9339184246279977,
+      "outcome_prediction": 0.048784730871292675
+    },
+    "val": {
+      "total": 16.528536796569824,
+      "reconstruction": 0.11229290068149567,
+      "total_correlation": 0.7930761516094208,
+      "outcome_prediction": 0.02849234640598297
+    },
+    "beta_tc": 16.25
+  },
+  {
+    "epoch": 26,
+    "train": {
+      "total": 18.103034713051535,
+      "reconstruction": 0.11692484366622838,
+      "total_correlation": 0.8968599845062603,
+      "outcome_prediction": 0.04676575747064569
+    },
+    "val": {
+      "total": 13.187819623947144,
+      "reconstruction": 0.11356396675109863,
+      "total_correlation": 0.6115352440625429,
+      "outcome_prediction": 0.026954686269164085
+    },
+    "beta_tc": 16.5
+  },
+  {
+    "epoch": 27,
+    "train": {
+      "total": 15.67364496534521,
+      "reconstruction": 0.11643465168096802,
+      "total_correlation": 0.7657359657301144,
+      "outcome_prediction": 0.051569392227313736
+    },
+    "val": {
+      "total": 15.821448802947998,
+      "reconstruction": 0.11278593838214875,
+      "total_correlation": 0.7368568181991577,
+      "outcome_prediction": 0.03689723387360573
+    },
+    "beta_tc": 16.75
+  },
+  {
+    "epoch": 28,
+    "train": {
+      "total": 16.605043627999045,
+      "reconstruction": 0.11601998013528911,
+      "total_correlation": 0.7680606991052628,
+      "outcome_prediction": 0.049945289438421074
+    },
+    "val": {
+      "total": 19.307766056060792,
+      "reconstruction": 0.11276807188987732,
+      "total_correlation": 0.9136108040809632,
+      "outcome_prediction": 0.042187866568565366
+    },
+    "beta_tc": 17.0
+  },
+  {
+    "epoch": 29,
+    "train": {
+      "total": 17.73222849585793,
+      "reconstruction": 0.11601471731608565,
+      "total_correlation": 0.8450844071128152,
+      "outcome_prediction": 0.05175864459438757
+    },
+    "val": {
+      "total": 12.357531690597535,
+      "reconstruction": 0.11447211802005768,
+      "total_correlation": 0.5470325112342834,
+      "outcome_prediction": 0.032566997781395914
+    },
+    "beta_tc": 17.25
+  },
+  {
+    "epoch": 30,
+    "train": {
+      "total": 18.961964910680596,
+      "reconstruction": 0.11590547216209499,
+      "total_correlation": 0.9008031324906782,
+      "outcome_prediction": 0.05085935502905737
+    },
+    "val": {
+      "total": 22.66747405529022,
+      "reconstruction": 0.11355097740888595,
+      "total_correlation": 1.1248729467391967,
+      "outcome_prediction": 0.030830977484583855
+    },
+    "beta_tc": 17.5
+  },
+  {
+    "epoch": 31,
+    "train": {
+      "total": 18.184398759495128,
+      "reconstruction": 0.11619829115542499,
+      "total_correlation": 0.8515374714677985,
+      "outcome_prediction": 0.05053416419435631
+    },
+    "val": {
+      "total": 31.3891695022583,
+      "reconstruction": 0.11240827739238739,
+      "total_correlation": 1.529658889770508,
+      "outcome_prediction": 0.03016055151820183
+    },
+    "beta_tc": 17.75
+  }
+]
