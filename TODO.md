@@ -6,7 +6,8 @@ Generated from analysis of repo innovations and gaps.
 
 ### Fix Bugs
 - [x] Fix stress test `compute_jacobian` call — wrong positional arg (`device` passed as `input_seq`) and wrong tensor shape ✅
-- [ ] Fix stress test variable `state_dim` support in self-model (add input projection layer)
+- [x] Fix stress test variable `state_dim` support in self-model (add input projection layer) ✅
+
 
 ### Multi-Dataset Validation
 - [ ] Run full 5-seed benchmark on ETTm1

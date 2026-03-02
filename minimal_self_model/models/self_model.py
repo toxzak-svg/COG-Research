@@ -8,12 +8,16 @@ class SelfModel(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim):
         super(SelfModel, self).__init__()
         
-        self.rnn = nn.RNN(input_dim, hidden_dim, batch_first=True)
+        # Input projection layer to handle variable state dimensions
+        self.input_projection = nn.Linear(input_dim, hidden_dim)
+        self.rnn = nn.RNN(hidden_dim, hidden_dim, batch_first=True)
         self.fc = nn.Linear(hidden_dim, output_dim)
 
     def forward(self, x):
+        # Project input to hidden dimension (handles variable input sizes)
+        x_projected = self.input_projection(x)
         # RNN forward pass
-        rnn_out, _ = self.rnn(x)
+        rnn_out, _ = self.rnn(x_projected)
         # Fully connected layer for output
         output = self.fc(rnn_out)  # Remove slicing to return predictions for all time steps
         return output
