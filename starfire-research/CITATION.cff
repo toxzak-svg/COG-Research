@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use or discuss this research, please cite this repository."
+title: "Starfire Research: Proof-Carrying Executable State and Symbolic Relation Induction"
+type: software
+authors:
+  - family-names: Maronek
+    given-names: Zachary
+repository-code: "https://github.com/toxzak-svg/COG-Research/tree/master/starfire-research"
+license: MIT
+version: 0.1.0
+date-released: 2026-07-13
+abstract: >-
+  A public, sanitized research surface documenting Starfire experiments on
+  proof-carrying executable commitment state, evidence-bound symbolic rule
+  induction, graph-discovered candidate relation frontiers, deterministic
+  replay, independent validation, and matched causal controls.
+keywords:
+  - cognitive architecture
+  - executable state
+  - proof-carrying state
+  - symbolic reasoning
+  - causal controls
+  - deterministic replay
