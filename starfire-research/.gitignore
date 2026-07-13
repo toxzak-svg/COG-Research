@@ -1,0 +1,31 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Persistent/private state
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+data/
+memory/
+state/
+
+# Logs and generated reports
+*.log
+target/
+artifacts/
+private-artifacts/
+
+# Rust
+Cargo.lock
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
